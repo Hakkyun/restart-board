@@ -8,7 +8,7 @@ public class HelloController {
 
 	@GetMapping("/hello")
 	public String helloPage() {
-		return "hello";	// src/main/resources/templates/hello.html
+		return "hello";		// src/main/resources/templates/hello.html
 	}
 	
 }
