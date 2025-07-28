@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.restartboard.mapper.BoardMapper">
+
+    <insert id="insertBoard" parameterType="BoardDTO">
+        INSERT INTO restartdb.board
+		(brd_title, brd_writer, brd_content, brd_reg_time)
+		VALUES (#{brdTitle}, #{brdWriter}, #{brdContent}, #{brdRegTime});
+    </insert>
+
+	<select id="selectAllPosts" resultType="com.example.restartboard.dto.BoardDTO">
+		SELECT 
+       		   b.brd_id			AS brdId
+     		 , b.brd_title		AS brdTitle
+     		 , b.brd_writer		AS brdWriter
+     		 , b.brd_content	AS brdContent
+     		 , b.brd_reg_time	AS brdRegTime
+  		  FROM 
+       		   board b
+         ORDER BY b.brd_id DESC        		   
+	</select>
+
+</mapper>

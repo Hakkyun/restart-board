@@ -1,5 +1,21 @@
-body, div {
-	border : 1px solid lightgray;
+.field-error{
+	border-color: red;
+}
+
+.error-message {
+	color : red;	
+}
+
+thead {
+	text-align: center;
+}
+
+.align-center {
+	text-align: center;	
+}
+
+.user {
+	max-width: 500px;
 }
 
 

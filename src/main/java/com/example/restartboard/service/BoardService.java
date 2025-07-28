@@ -1,19 +1,15 @@
 package com.example.restartboard.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 import com.example.restartboard.dto.BoardDTO;
-import com.example.restartboard.mapper.BoardMapper;
 
-@Service
-public class BoardService {
+public interface BoardService {
 	
-	@Autowired
-	private BoardMapper boardMapper;
+	// 글쓰기로 쓴 글 DB에 등록하는 기능
+	void insertBoard(BoardDTO boardDTO);
 	
-	public void insertBoard(BoardDTO boardDTO) {
-		boardMapper.insertBoard(boardDTO);
-	}
+	// DB에 저장되어 있는 글들 가져오는 기능
+	List<BoardDTO> selectAllPosts();
 	
 }

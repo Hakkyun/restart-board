@@ -7,20 +7,24 @@
 	<link rel="stylesheet" th:href="@{/css/common.css}">	
 </head>
 <body class="container mt-4">
+	<div th:replace="~{fragments/header :: headerFragment}"></div>
 	<h1 class="mb-4">✍ 글 작성</h1>
 	
-	<form action="/board/write" method="post">
+	<form th:action="@{/board/write}" th:object="${boardDTO}" method="post">
 		<div class="mb-3">
 			<label class="form-label">제목</label>
-			<input type="text" class="form-control" name="title">
+			<input type="text" class="form-control" th:field="*{brdTitle}" placeholder="제목을 입력하세요." th:class="${#fields.hasErrors('brdTitle')} ? 'form-control field-error' : 'form-control'">
+			<div th:if="${#fields.hasErrors('brdTitle')}" th:errors="*{brdTitle}" class="error-message"></div>
 		</div>
 		<div class="mb-3">
 			<label class="form-label">작성자</label>
-			<input type="text" class="form-control" name="writer">
+			<input type="text" class="form-control" th:field="*{brdWriter}" placeholder="작성자를 입력하세요." th:class="${#fields.hasErrors('brdWriter')} ? 'form-control field-error' : 'form-control'">
+			<div th:if="${#fields.hasErrors('brdWriter')}" th:errors="*{brdWriter}" class="error-message"></div>
 		</div>
 		<div class="mb-3">
 			<label class="form-label">내용</label>
-			<textarea class="form-control", name="content" rows="6"></textarea>
+			<textarea class="form-control" th:field="*{brdContent}" rows="6" placeholder="내용을 입력하세요." th:class="${#fields.hasErrors('brdContent')} ? 'form-control field-error' : 'form-control'"></textarea>
+			<div th:if="${#fields.hasErrors('brdContent')}" th:errors="*{brdContent}" class="error-message"></div>
 		</div>
 		<button type="submit" class="btn btn-success">저장</button>
 		<a href="/board" class="btn btn-secondary">취소</a>

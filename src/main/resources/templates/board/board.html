@@ -7,6 +7,7 @@
 	<link rel="stylesheet" th:href="@{/css/common.css}">
 </head>
 <body class="container mt-4">
+	<div th:replace="~{fragments/header :: headerFragment}"></div>
     <h1 class="mb-4"->📋 게시판</h1>
     
 	<!-- 작성 버튼 -->
@@ -15,35 +16,26 @@
 	</div>
 	
 	<!-- 게시글 목록 테이블 -->
-	<table class="table table-striped">
+	<!-- <p th:if="${#lists.isEmpty(posts)}">게시글이 없습니다.</p> -->
+	<!-- th:if="${not #lists.isEmpty(posts)" -->
+	<table class="table table-striped" border="1">
 		<thead>
 			<tr>
 				<th>번호</th>
 				<th>제목</th>
 				<th>작성자</th>
-				<th>작성일</th>
+				<th>내용</th>
+				<th>작성시간</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td><a href="#">가짜데이터</a></td>
-				<td>학균</td>
-				<td>2025-07-12</td>
+			<tr th:each="post : ${posts}">
+				<td th:text="${post.brdId}" class="align-center"></td>
+				<td th:text="${post.brdTitle}"></td>
+				<td th:text="${post.brdWriter}" class="align-center"></td>
+				<td th:text="${post.brdContent}"></td>
+				<td th:text="${#temporals.format(post.brdRegTime, 'yyyy-MM-dd HH:mm:ss')}" class="align-center"></td>	
 			</tr>
-			<tr>
-				<td>2</td>
-				<td><a href="#">가짜데이터2</a></td>
-				<td>학균</td>
-				<td>2025-07-25</td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td><a href="#">애린왕자</a></td>
-				<td>지은이지은</td>
-				<td>2025-07-25</td>
-			</tr>		
-			<!-- 타임리프로 데이터 반복 출력 예정 -->
 		</tbody>
 	</table>
 </body>
