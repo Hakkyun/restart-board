@@ -30,6 +30,7 @@ public class BoardController {
 	// @Autowired
 	// BoardService boardService;
 	
+	// 게시판 화면 요청
 	@GetMapping("/board")
 	public String board(Model model) {
 		List<BoardDTO> postList = boardService.selectAllPosts();
@@ -37,12 +38,14 @@ public class BoardController {
 		return "board/board";			// template/board/board.html 
 	}
 
+	// 글 작성 화면 요청
 	@GetMapping("/board/write")
 	public String boardWrite(Model model) {
 		model.addAttribute("boardDTO", new BoardDTO());
 		return "board/board-write";		// template/board/boardWrite.html 
 	}
 	
+	// 글 작성 처리
 	@PostMapping("/board/write")
 	public String write(@Valid @ModelAttribute BoardDTO boardDTO, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {

@@ -1,11 +1,57 @@
-<div th:fragment="headerFragment">
-	<div style="background-color: #f8f9fa; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
-		<div>
-			<a href="/" style="text-decoration: none; font-weight: bold;">🏠 홈</a>
+<header th:fragment="headerFragment" class="d-flex justify-content-between align-items-center px-5 mb-3">
+	<!-- 왼쪽 로고 -->
+	<div>
+		<a href="/" style="text-decoration: none; font-weight: bold;">🏠 홈</a>
+	</div>
+	
+	<!-- 가운데 메뉴 -->
+	<div class="d-flex align-items-center gap-4">
+		<a href="/board">게시판</a>
+		<a href="/board/write">글 작성</a>				
+	</div>
+		
+	<!-- 오른쪽 로그인 영역 -->
+	<div class="d-flex align-items-center">
+		<!-- 로그인 안 했을 때 -->
+		<div th:if="${session.loginUser == null}">
+			<a href="/user/login">
+				<i class="fa-solid fa-circle-user user-icon"></i>
+			</a>
 		</div>
-		<div>
-			<a href="/board" style="margin-right: 15px;">게시판</a>
-			<a href="/board/write">글 작성</a>
+
+		<!-- 로그인 했을 때 -->
+		<div th:if="${session.loginUser != null}" class="d-flex align-items-center">
+		    <span th:text="${session.loginUser.userNickname}+' 님 환영합니다'" class="me-2">닉네임</span>
+			<a href="/user/mypage">
+				<!-- 나중에 이미지 저장하면 사용 -->
+			    <!-- <img th:src="${session.loginUser.userProfile != null ? session.loginUser.userProfile : '/img/default-profile.png'}" alt="프로필" class="profile"> -->
+				<div class="user-img m-2">
+					<img th:src="@{/image/default-avatar.png}">					
+				</div>
+			</a>				
+		    <!--<a href="/user/logout">로그아웃</a>-->		
+			<!-- 로그아웃 버튼 -->
+			<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#logoutModal">로그아웃</button>
+		</div>				
+	</div>
+		
+	<!-- 로그아웃 모달 -->
+	<div class="modal fade" id="logoutModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">로그아웃</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					정말 로그아웃 하시겠습니까?
+				</div>
+				<div class="modal-footer">
+					<a href="/user/logout" class="btn btn-primary">확인</a>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
+		
+</header>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>게시판</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 	<link rel="stylesheet" th:href="@{/css/common.css}">
 </head>
 <body class="container mt-4">
@@ -33,7 +34,9 @@
 				<td th:text="${post.brdId}" class="align-center"></td>
 				<td th:text="${post.brdTitle}"></td>
 				<td th:text="${post.brdWriter}" class="align-center"></td>
-				<td th:text="${post.brdContent}"></td>
+				<!-- 이렇게 쓸 경우 substring 범위보다 String의 길이가 짧을 경우 StringIndeOutOfBoundsExcepion 발생 -->
+				<!-- <td th:text="${#strings.substring(post.brdContent, 0, 1) + '...'}"></td> -->
+				<td th:text="${#strings.length(post.brdContent) > 18 ? #strings.substring(post.brdContent, 0, 18) + '...' : post.brdContent}"></td>
 				<td th:text="${#temporals.format(post.brdRegTime, 'yyyy-MM-dd HH:mm:ss')}" class="align-center"></td>	
 			</tr>
 		</tbody>
