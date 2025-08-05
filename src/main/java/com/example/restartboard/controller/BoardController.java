@@ -50,7 +50,7 @@ public class BoardController {
 	public String write(@Valid @ModelAttribute BoardDTO boardDTO, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("boardDTO", boardDTO);
-			return "board/board-write";
+			return "board/board-write"; 
 		}
 		
 		boardDTO.setBrdRegTime(LocalDateTime.now());
