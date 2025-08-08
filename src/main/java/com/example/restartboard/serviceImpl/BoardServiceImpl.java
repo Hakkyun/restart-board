@@ -1,4 +1,4 @@
-package com.example.restartboard.service;
+package com.example.restartboard.serviceImpl;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.restartboard.dto.BoardDTO;
 import com.example.restartboard.mapper.BoardMapper;
+import com.example.restartboard.service.BoardService;
 
 @Service
 public class BoardServiceImpl implements BoardService{

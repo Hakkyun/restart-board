@@ -8,6 +8,8 @@ import com.example.restartboard.entity.UserEntity;
 @Mapper
 public interface UserMapper {
 
+	void joinUser(UserEntity userEntity);
+	
 	UserEntity findByEmail(@Param("userEmail") String userEmail);
 	
 }

@@ -6,9 +6,18 @@
 <mapper namespace="com.example.restartboard.mapper.BoardMapper">
 
     <insert id="insertBoard" parameterType="BoardDTO">
-        INSERT INTO restartdb.board
-		(brd_title, brd_writer, brd_content, brd_reg_time)
-		VALUES (#{brdTitle}, #{brdWriter}, #{brdContent}, #{brdRegTime});
+		INSERT INTO restartdb.board
+		    (
+		        brd_title
+		      , brd_writer
+		      , brd_content
+		      , brd_reg_time
+		) VALUES (
+		        #{brdTitle}
+		      , #{brdWriter}
+		      , #{brdContent}
+		      , #{brdRegTime}
+		)
     </insert>
 
 	<select id="selectAllPosts" resultType="com.example.restartboard.dto.BoardDTO">

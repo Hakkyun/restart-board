@@ -7,8 +7,8 @@ public class UserEntity {
 	private Long   userId;
 	private String userEmail;
 	private String userPwd;
-	private String userNickname;
 	private String userName;
+	private String userNickname;
 	private String userRole;
 	private String userProvider;
 	private LocalDateTime userRegTime;
@@ -31,17 +31,17 @@ public class UserEntity {
 	public void setUserPwd(String userPwd) {
 		this.userPwd = userPwd;
 	}
-	public String getUserNickname() {
-		return userNickname;
-	}
-	public void setUserNickname(String userNickname) {
-		this.userNickname = userNickname;
-	}
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getUserNickname() {
+		return userNickname;
+	}
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
 	}
 	public String getUserRole() {
 		return userRole;

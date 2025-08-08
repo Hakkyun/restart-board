@@ -20,18 +20,20 @@
 		</div>
 
 		<!-- 로그인 했을 때 -->
-		<div th:if="${session.loginUser != null}" class="d-flex align-items-center">
-		    <span th:text="${session.loginUser.userNickname}+' 님 환영합니다'" class="me-2">닉네임</span>
+		<div th:if="${session.loginUser != null}" class="d-flex align-items-center gap-1">
+		    <span class="me-2">
+				<strong th:text="${session.loginUser.userNickname}"></strong> 님 환영합니다
+			</span>
 			<a href="/user/mypage">
 				<!-- 나중에 이미지 저장하면 사용 -->
 			    <!-- <img th:src="${session.loginUser.userProfile != null ? session.loginUser.userProfile : '/img/default-profile.png'}" alt="프로필" class="profile"> -->
-				<div class="user-img m-2">
-					<img th:src="@{/image/default-avatar.png}">					
+				<div class="user-img">
+					<img th:src="@{/image/default-avatar.png}">		
 				</div>
 			</a>				
 		    <!--<a href="/user/logout">로그아웃</a>-->		
 			<!-- 로그아웃 버튼 -->
-			<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#logoutModal">로그아웃</button>
+			<button type="button" class="btn btn-secondary m-4" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fas fa-sign-out-alt"></i></button>
 		</div>				
 	</div>
 		

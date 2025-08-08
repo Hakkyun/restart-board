@@ -1,10 +1,14 @@
-package com.example.restartboard.service;
+package com.example.restartboard.serviceImpl;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.restartboard.dto.UserDTO;
 import com.example.restartboard.entity.UserEntity;
+import com.example.restartboard.enums.JoinResult;
+import com.example.restartboard.enums.LoginResult;
 import com.example.restartboard.mapper.UserMapper;
+import com.example.restartboard.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -20,9 +24,21 @@ public class UserServiceImpl implements UserService {
 	};
 	
 	@Override
-	public void JoinUser(UserEntity user) {
-		// TODO Auto-generated method stub
+	public JoinResult JoinUser(UserDTO userDTO) {
 		
+		try {
+			// 비밀번호 암호화
+			String encryptedPwd = passwordEncoder.encode(userDTO.getUserPwd());
+			
+			// DTO -> Entity 변환
+			UserEntity userEntity = userDTO.toUserEntity(encryptedPwd);
+			
+			userMapper.joinUser(userEntity);
+			
+			return JoinResult.SUCCESS;
+		} catch (Exception e) {
+			return JoinResult.FAIL;			
+		}
 	}
 
 	@Override

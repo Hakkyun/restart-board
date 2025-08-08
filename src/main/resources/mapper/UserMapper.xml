@@ -5,13 +5,34 @@
 
 <mapper namespace="com.example.restartboard.mapper.UserMapper">
 
+	<insert id="joinUser" parameterType="com.example.restartboard.entity.UserEntity">
+		INSERT INTO restartdb.`user`
+		(
+		        user_email
+		      , user_pwd
+		      , user_name
+		      , user_nickname
+		      , user_role
+		      , user_provider
+		      , user_reg_time
+		) VALUES (
+		        #{userEmail} 
+		      , #{userPwd} 
+		      , #{userName} 
+		      , #{userNickname} 
+		      , #{userRole} 
+		      , #{userProvider} 
+		      , #{userRegTime} 
+		);
+	</insert>
+
 	<select id="findByEmail" resultType="com.example.restartboard.entity.UserEntity" parameterType="String">
 		SELECT 
 			   user_id			AS userId
 			 , user_email		AS userEmail
 			 , user_pwd			AS userPwd
-			 , user_nickname	AS userNickname
 			 , user_name		AS userName
+			 , user_nickname	AS userNickname
 			 , user_role		AS userRole
 			 , user_provider	AS userProvider			 
 			 , user_reg_time	AS userRegTime			 

@@ -20,12 +20,12 @@
 				<input type="password" class="form-control" th:field="*{userPwd}" required>
 			</div>
 			<div class="mb-3">
-				<label for="userNickname" class="form-label">닉네임</label>
-				<input type="text" class="form-control" th:field="*{userNickname}" required>
-			</div>
-			<div class="mb-3">
 				<label for="userName" class="form-label">이름</label>
 				<input type="text" class="form-control" th:field="*{userName}" required>
+			</div>
+			<div class="mb-3">
+				<label for="userNickname" class="form-label">닉네임</label>
+				<input type="text" class="form-control" th:field="*{userNickname}" required>
 			</div>
 			<button type="submit" class="btn btn-primary w-100">가입하기</button>
 		</form>
@@ -40,5 +40,9 @@
 		</div>
 		
 	</div>
+	
+	<script th:if="${joinMessage != null}">
+	    alert(`${joinMessage}`);
+	</script>
 </body>
 </html>

@@ -3,10 +3,13 @@ package com.example.restartboard.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.restartboard.service.LoginResult;
+import com.example.restartboard.dto.UserDTO;
+import com.example.restartboard.enums.JoinResult;
+import com.example.restartboard.enums.LoginResult;
 import com.example.restartboard.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -40,7 +43,7 @@ public class UserController {
 			}
 		}
 		
-	    return "/user/login"; 
+	    return "user/login"; 
 	}	
 	
 	// 로그아웃 처리
@@ -49,6 +52,25 @@ public class UserController {
 		session.invalidate();	// 세션 전체 삭제
 		return "redirect:/";
 	}
+	
+	// 회원가입 화면 요청
+	@GetMapping("/user/join")
+	public String joinView(Model model) {
+		model.addAttribute("userDTO", new UserDTO());
+		return "user/join";			// template/user/join.html
+	}
+	
+	// 회원가입 처리
+	@PostMapping("/user/join")
+	public String join(@ModelAttribute UserDTO userDTO, Model model) {
+		JoinResult joinResult = userService.JoinUser(userDTO);
+		
+		model.addAttribute("joinResult", joinResult.name());
+		model.addAttribute("joinMessage", joinResult.getMessage());
+		
+		return joinResult == joinResult.SUCCESS ? "user/login" : "user/join";
+	}
+
 	
 	
 }
