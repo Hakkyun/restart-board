@@ -11,7 +11,7 @@
 	<div class="container mt-5 user">
 		
 		<h2 class="mb-4">로그인</h2>
-		<form th:action="@{/user/login}" method="post">
+		<form th:action="@{/user/loginProc}" method="post">
 			<div class="mb-3">
 				<label for="userEmail" class="form-label">이메일</label>
 				<input type="email" class="form-control" name="userEmail" required>
@@ -20,14 +20,17 @@
 				<label for="userPwd" class="form-label">비밀번호</label>
 				<input type="password" class="form-control" name="userPwd" required>
 			</div>
+			
+			<!-- CSRF (csrf 비활성화 안 했으면 반드시 포함) -->
+		    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 			<button type="submit" class="btn btn-primary w-100">로그인</button>
 		</form>
 
 		<hr class="my-4">
 
-		<!-- 로그인 실패 시 -->
-		<div th:if="${loginError}" class="alert alert-danger">
-		    <span th:text="${loginError}"></span>
+		<!-- 실패 메시지: failureUrl 사용 시 -->
+		<div th:if="${param.error}" class="alert alert-danger mt-3">
+		  <span th:text="${param.msg != null ? param.msg : '로그인에 실패했습니다.'}"></span>
 		</div>
 		
 		<!-- 소셜 로그인 자리 -->

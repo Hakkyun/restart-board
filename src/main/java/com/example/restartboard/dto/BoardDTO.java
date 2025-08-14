@@ -9,7 +9,6 @@ public class BoardDTO {
 	private Long brdId;
 	@NotBlank(message = "제목을 입력하셔야 합니다.")
 	private String brdTitle;
-	@NotBlank(message = "작성자를 입력하셔야 합니다.")
 	private String brdWriter;
 	@NotBlank(message = "내용을 입력하셔야 합니다.")
 	private String brdContent;

@@ -1,28 +1,29 @@
 <header th:fragment="headerFragment" class="d-flex justify-content-between align-items-center px-5 mb-3">
 	<!-- 왼쪽 로고 -->
 	<div>
-		<a href="/" style="text-decoration: none; font-weight: bold;">🏠 홈</a>
+		<a href="/home" style="text-decoration: none; font-weight: bold;">
+			<img class="home-logo" th:src="@{/image/chelsea-logo.png}" alt="Home Logo">
+		</a>
 	</div>
 	
 	<!-- 가운데 메뉴 -->
-	<div class="d-flex align-items-center gap-4">
-		<a href="/board">게시판</a>
-		<a href="/board/write">글 작성</a>				
+	<div class="d-flex align-items-center menu-list gap-4">
+		<a th:href="@{/board}">게시판</a>
 	</div>
 		
 	<!-- 오른쪽 로그인 영역 -->
 	<div class="d-flex align-items-center">
 		<!-- 로그인 안 했을 때 -->
-		<div th:if="${session.loginUser == null}">
+		<div sec:authorize="!isAuthenticated()">
 			<a href="/user/login">
 				<i class="fa-solid fa-circle-user user-icon"></i>
 			</a>
 		</div>
 
 		<!-- 로그인 했을 때 -->
-		<div th:if="${session.loginUser != null}" class="d-flex align-items-center gap-1">
-		    <span class="me-2">
-				<strong th:text="${session.loginUser.userNickname}"></strong> 님 환영합니다
+		<div sec:authorize="isAuthenticated()" class="d-flex align-items-center gap-1">
+		    <span class="me-2 join-text">
+				<strong th:text="${#authentication.principal.nickname}"></strong> 님 환영합니다
 			</span>
 			<a href="/user/mypage">
 				<!-- 나중에 이미지 저장하면 사용 -->
@@ -49,7 +50,7 @@
 					정말 로그아웃 하시겠습니까?
 				</div>
 				<div class="modal-footer">
-					<a href="/user/logout" class="btn btn-primary">확인</a>
+					<a th:href="@{/user/logout}" class="btn btn-primary">확인</a>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 				</div>
 			</div>

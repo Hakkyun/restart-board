@@ -1,7 +1,17 @@
 /* 헤더부분 */
 header {
-	background-color : #889f69;
+	background-color : #034694;
 	height : 90px;
+}
+
+.home-logo{
+	width: 55px;
+	height: 55px;
+}
+
+.menu-list > a{
+	color: #F0E9DF;
+	text-decoration: none;
 }
 
 .user-icon {
@@ -23,6 +33,10 @@ header {
 	height: 100%;
 	object-fit: cover;
 } 
+
+.join-text {
+	color: #F0E9DF;
+}
 
 .field-error{
 	border-color: red;

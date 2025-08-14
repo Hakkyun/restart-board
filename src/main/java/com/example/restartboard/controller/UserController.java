@@ -29,28 +29,28 @@ public class UserController {
 		return "user/login";			// template/user/login.html 
 	}
 	
-	// 로그인 처리
-	@PostMapping("/user/login")
-	public String login(@RequestParam String userEmail, @RequestParam String userPwd, HttpSession session, Model model) {
-		
-		LoginResult loginResult = userService.login(userEmail, userPwd, session);
-		
-		switch(loginResult) {
-			case NO_USER -> model.addAttribute("loginError", "회원이 존재하지 않습니다.");
-			case WRONG_PASSWORD -> model.addAttribute("loginError", "비밀번호가 틀렸습니다.");
-			case SUCCESS -> {
-				return "redirect:/";
-			}
-		}
-		
-	    return "user/login"; 
-	}	
+//	// 로그인 처리
+//	@PostMapping("/user/loginProc")
+//	public String login(@RequestParam String userEmail, @RequestParam String userPwd, HttpSession session, Model model) {
+//		
+//		LoginResult loginResult = userService.login(userEmail, userPwd, session);
+//		
+//		switch(loginResult) {
+//			case NO_USER -> model.addAttribute("loginError", "회원이 존재하지 않습니다.");
+//			case WRONG_PASSWORD -> model.addAttribute("loginError", "비밀번호가 틀렸습니다.");
+//			case SUCCESS -> {
+//				return "redirect:/home";
+//			}
+//		}
+//		
+//	    return "user/login"; 
+//	}	
 	
 	// 로그아웃 처리
 	@GetMapping("/user/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();	// 세션 전체 삭제
-		return "redirect:/";
+		return "redirect:/home";
 	}
 	
 	// 회원가입 화면 요청
@@ -68,7 +68,7 @@ public class UserController {
 		model.addAttribute("joinResult", joinResult.name());
 		model.addAttribute("joinMessage", joinResult.getMessage());
 		
-		return joinResult == joinResult.SUCCESS ? "user/login" : "user/join";
+		return joinResult == joinResult.SUCCESS ? "/home" : "user/join";
 	}
 
 	

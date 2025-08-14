@@ -49,6 +49,7 @@ public class BoardController {
 	@PostMapping("/board/write")
 	public String write(@Valid @ModelAttribute BoardDTO boardDTO, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors()) {
+			System.out.println("ctrlerrrrr111");
 			model.addAttribute("boardDTO", boardDTO);
 			return "board/board-write";
 		}
