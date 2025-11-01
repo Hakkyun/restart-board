@@ -1,3 +1,12 @@
+/* 공통 */
+thead {
+	text-align: center;
+}
+
+.align-center {
+	text-align: center;	
+}
+
 /* 헤더부분 */
 header {
 	background-color : #034694;
@@ -13,6 +22,11 @@ header {
 	color: #F0E9DF;
 	text-decoration: none;
 }
+
+.user {
+	max-width: 400px;
+}
+
 
 .user-icon {
 	font-size: xxx-large;
@@ -34,10 +48,12 @@ header {
 	object-fit: cover;
 } 
 
+/* 회원가입 */
 .join-text {
 	color: #F0E9DF;
 }
 
+/* 글쓰기 */
 .field-error{
 	border-color: red;
 }
@@ -46,14 +62,23 @@ header {
 	color : red;	
 }
 
-thead {
-	text-align: center;
+/* 게시판 */
+.board-list {
+	cursor: pointer;
 }
 
-.align-center {
-	text-align: center;	
+.board-list:hover .contents {
+	text-decoration: underline;
 }
 
-.user {
-	max-width: 400px;
-}
+
+
+
+
+
+
+
+
+
+
+

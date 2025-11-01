@@ -3,18 +3,23 @@ package com.example.restartboard.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.restartboard.dto.BoardDTO;
+import com.example.restartboard.security.CustomUserDetails;
 import com.example.restartboard.service.BoardService;
 
 import jakarta.validation.Valid;
 
+@RequestMapping("/board")
 @Controller
 public class BoardController {
 
@@ -31,7 +36,7 @@ public class BoardController {
 	// BoardService boardService;
 	
 	// 게시판 화면 요청
-	@GetMapping("/board")
+	@GetMapping({"", "/"})
 	public String board(Model model) {
 		List<BoardDTO> postList = boardService.selectAllPosts();
 		model.addAttribute("posts", postList);
@@ -39,24 +44,27 @@ public class BoardController {
 	}
 
 	// 글 작성 화면 요청
-	@GetMapping("/board/write")
+	@GetMapping("/write")
 	public String boardWrite(Model model) {
 		model.addAttribute("boardDTO", new BoardDTO());
 		return "board/board-write";		// template/board/boardWrite.html 
 	}
 	
 	// 글 작성 처리
-	@PostMapping("/board/write")
-	public String write(@Valid @ModelAttribute BoardDTO boardDTO, BindingResult bindingResult, Model model) {
+	@PostMapping("/write")
+	@PreAuthorize("isAuthenticated()")	// 메소드 단계에서도 로그인 여부 확인(이중 방지)
+	public String write(@Valid @ModelAttribute BoardDTO boardDTO, BindingResult bindingResult, @AuthenticationPrincipal CustomUserDetails me, Model model) {
 		if(bindingResult.hasErrors()) {
-			System.out.println("ctrlerrrrr111");
 			model.addAttribute("boardDTO", boardDTO);
 			return "board/board-write";
 		}
 		
 		boardDTO.setBrdRegTime(LocalDateTime.now());
+		boardDTO.setBrdWriteId(me.getId());
 		boardService.insertBoard(boardDTO);
 	    return "redirect:/board";
 	}
+	
+	// 글 상세페이지(만들기 예정)
 	
 }

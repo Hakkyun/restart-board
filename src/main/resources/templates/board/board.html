@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>게시판</title>
@@ -32,14 +32,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="post : ${posts}">
+				<tr th:each="post : ${posts}" th:onclick="|location.href='@{/board/detail/{id}(id=${post.brdId})}'|" class="board-list">
 					<td th:text="${post.brdId}" class="align-center"></td>
 					<td th:text="${post.brdTitle}"></td>
-					<td th:text="${post.brdWriter}" class="align-center"></td>
-					<!-- 이렇게 쓸 경우 substring 범위보다 String의 길이가 짧을 경우 StringIndeOutOfBoundsExcepion 발생 -->
-					<!-- <td th:text="${#strings.substring(post.brdContent, 0, 1) + '...'}"></td> -->
-					<td th:text="${#strings.length(post.brdContent) > 18 ? #strings.substring(post.brdContent, 0, 18) + '...' : post.brdContent}"></td>
-					<td th:text="${#temporals.format(post.brdRegTime, 'yyyy-MM-dd HH:mm:ss')}" class="align-center"></td>	
+					<td th:text="${post.writerNickname}" class="align-center"></td>
+					<td th:text="${#strings.length(post.brdContent) > 20 ? #strings.substring(post.brdContent, 0, 20) + '...' : post.brdContent}" class="contents">
+						<!-- 타임리프 하나만 링크 거는 방법 -->
+						<!-- <a th:href="@{board/detail/{id}(id=${post.brdId})}" th:text="${#strings.length(post.brdContent) > 20 ? #strings.substring(post.brdContent, 0, 20) + '...' : post.brdContent}"></a> -->	
+					</td>
+					<td th:text="${#temporals.format(post.brdRegTime, 'yyyy-MM-dd HH:mm:ss')}" class="align-center"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -47,23 +48,23 @@
 
 	<!-- 모달 -->
 	<div class="modal fade" id="loginRequiredModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title">로그인이 필요합니다</h5>
-	        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-	      </div>
-	      <div class="modal-body">
-	        글쓰기는 회원 전용 기능입니다. 로그인 후 이용해주세요.
-	      </div>
-	      <div class="modal-footer">
-	        <!-- 로그인으로 이동 (로그인 후 글쓰기 화면으로 돌아오고 싶다면 redirect 파라미터 활용) -->
-	        <a class="btn btn-primary" th:href="@{user/login}" id="goLoginBtn">로그인</a>
-	        <button class="btn btn-outline-secondary" data-bs-dismiss="modal">닫기</button>
-	      </div>
-	    </div>
-	  </div>
-	</div>	
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">로그인이 필요합니다</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					글쓰기는 회원 전용 기능입니다. 로그인 후 이용해주세요.
+				</div>
+				<div class="modal-footer">
+					<!-- 로그인으로 이동 (로그인 후 글쓰기 화면으로 돌아오고 싶다면 redirect 파라미터 활용) -->
+					<a class="btn btn-primary" th:href="@{board/write}" id="goLoginBtn">로그인</a>
+					<button class="btn btn-outline-secondary" data-bs-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<!-- <script th:src="@{/js/main.js}"></script> -->
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>

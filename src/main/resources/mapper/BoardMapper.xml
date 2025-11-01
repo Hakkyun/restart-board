@@ -9,27 +9,29 @@
 		INSERT INTO restartdb.board
 		    (
 		        brd_title
-		      , brd_writer
+		      , writer_id
 		      , brd_content
 		      , brd_reg_time
 		) VALUES (
 		        #{brdTitle}
-		      , #{brdWriter}
+		      , #{writerId}
 		      , #{brdContent}
 		      , #{brdRegTime}
 		)
     </insert>
 
 	<select id="selectAllPosts" resultType="com.example.restartboard.dto.BoardDTO">
-		SELECT 
-       		   b.brd_id			AS brdId
-     		 , b.brd_title		AS brdTitle
-     		 , b.brd_writer		AS brdWriter
-     		 , b.brd_content	AS brdContent
-     		 , b.brd_reg_time	AS brdRegTime
-  		  FROM 
-       		   board b
-         ORDER BY b.brd_id DESC        		   
+        SELECT 
+               b.brd_id         AS brdId
+             , b.brd_title      AS brdTitle
+             , b.writer_id      AS writerId
+             , u.user_nickname  AS writerNickname
+             , b.brd_content    AS brdContent
+             , b.brd_reg_time   AS brdRegTime
+          FROM 
+               board b INNER JOIN USER u
+               ON b.writer_id = u.user_id
+         ORDER BY b.brd_id DESC    		   
 	</select>
 
 </mapper>

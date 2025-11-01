@@ -25,6 +25,7 @@ public class SecurityConfig {
         	.authorizeHttpRequests(auth -> auth                         	// URL별 접근 권한 정의
         		    .requestMatchers("/admin/**").hasRole("ADMIN")			// .hasRole("ADMIN") -> 특정 역할만 가능 
         		    .requestMatchers("/board/write").authenticated()		// authenticated() -> 로그인 하면 접근 가능
+        		    .requestMatchers("/order/orderPage/**").authenticated()
         		    .anyRequest().permitAll()                             	// permitAll() : 모두 접근 가능
         	)
         	.formLogin(form -> form
@@ -32,7 +33,7 @@ public class SecurityConfig {
         		    .loginProcessingUrl("/user/loginProc") 					// POST 인증 요청 URL (필터가 가로챔)
         		    .usernameParameter("userEmail")    						// 아이디 파라미터 이름 : 이메일로 로그인 하니까 userEmail
         		    .passwordParameter("userPwd")   					    // 비번 파라미터 이름
-        		    .defaultSuccessUrl("/home", false) 						// 성공 시 이동 경로
+        		    .defaultSuccessUrl("/home", false) 						// 성공 시 이동 경로 / false시 들어왔던 경로로 반환
         		    .failureHandler(new CustomAuthFailureHandler())  		// 실패 메시지 커스텀 핸들러
         	)
         	.logout(logout -> logout

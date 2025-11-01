@@ -6,10 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.restartboard.entity.UserEntity;
 import com.example.restartboard.mapper.UserMapper;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 	
   private final UserMapper userMapper;

@@ -1,0 +1,64 @@
+<!-- templates/post/detail.html -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${post.brdTitle}">글 상세</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+
+<body class="container py-4">
+
+	<!-- 제목 -->
+	<h3 class="mb-2" th:text="${post.brdTitle}">제목</h3>
+
+	<!-- 메타 정보 -->
+	<div class="text-muted small mb-3">
+		<span th:text="${post.writerNickname ?: '알 수 없음'}">작성자</span>
+		· <span th:text="${#temporals.format(post.brdRegDate,'yyyy-MM-dd HH:mm')}"></span>
+		· 조회 <span th:text="${post.views}">0</span>
+	</div>
+
+	<!-- 본문 -->
+	<div class="border rounded p-3 mb-4"
+		th:utext="${#strings.replace(#numbers.formatInteger(0,0) != null ? post.brdContent : post.brdContent, '\n','<br/>')}">
+		내용
+	</div>
+
+	<!-- 첨부파일 (옵션) -->
+<!--	
+	<div class="mb-4" th:if="${files != null and !files.isEmpty()}">
+		<h6 class="fw-bold mb-2">첨부파일</h6>
+		<ul class="list-unstyled mb-0">
+			<li th:each="file : ${files}">
+				<a th:href="@{|/files/${file.id}|}" th:text="${file.originalName}">filename.ext</a>
+				<small class="text-muted"
+					th:text="${' (' + #numbers.formatInteger((file.size + 1023)/1024,0) + ' KB)'}"> (0 KB)</small>
+			</li>
+		</ul>
+	</div>
+-->
+
+	<!-- 버튼 영역 -->
+	<div class="d-flex gap-2">
+		<!-- 목록으로 -->
+		<a class="btn btn-outline-secondary" th:href="@{/board}">목록</a>
+
+		<!-- 수정/삭제: 작성자 or ADMIN 만 노출 -->
+		<div class="d-flex gap-2"
+			sec:authorize="hasRole('ADMIN') or #authentication?.principal?.id == ${post.writerId}">
+			<a class="btn btn-primary" th:href="@{|/posts/${post.id}/edit|}">수정</a>
+
+			<form th:action="@{|/posts/${post.id}|}" method="post" class="d-inline">
+				<input type="hidden" name="_method" value="delete" />
+				<!-- CSRF 토큰: CSRF 활성화 시 필요 -->
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+				<button type="submit" class="btn btn-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+			</form>
+		</div>
+	</div>
+
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

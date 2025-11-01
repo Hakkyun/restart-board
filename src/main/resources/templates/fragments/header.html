@@ -1,7 +1,7 @@
 <header th:fragment="headerFragment" class="d-flex justify-content-between align-items-center px-5 mb-3">
 	<!-- 왼쪽 로고 -->
 	<div>
-		<a href="/home" style="text-decoration: none; font-weight: bold;">
+		<a th:href="@{/home}" style="text-decoration: none; font-weight: bold;">
 			<img class="home-logo" th:src="@{/image/chelsea-logo.png}" alt="Home Logo">
 		</a>
 	</div>
@@ -9,13 +9,14 @@
 	<!-- 가운데 메뉴 -->
 	<div class="d-flex align-items-center menu-list gap-4">
 		<a th:href="@{/board}">게시판</a>
+		<a th:href="@{/order}">결제연습</a>
 	</div>
 		
 	<!-- 오른쪽 로그인 영역 -->
 	<div class="d-flex align-items-center">
 		<!-- 로그인 안 했을 때 -->
 		<div sec:authorize="!isAuthenticated()">
-			<a href="/user/login">
+			<a th:href="@{/user/login}">
 				<i class="fa-solid fa-circle-user user-icon"></i>
 			</a>
 		</div>
@@ -25,7 +26,7 @@
 		    <span class="me-2 join-text">
 				<strong th:text="${#authentication.principal.nickname}"></strong> 님 환영합니다
 			</span>
-			<a href="/user/mypage">
+			<a th:href="@{/user/mypage}">
 				<!-- 나중에 이미지 저장하면 사용 -->
 			    <!-- <img th:src="${session.loginUser.userProfile != null ? session.loginUser.userProfile : '/img/default-profile.png'}" alt="프로필" class="profile"> -->
 				<div class="user-img">

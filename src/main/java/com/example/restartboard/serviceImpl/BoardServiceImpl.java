@@ -19,6 +19,8 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Override
 	public void insertBoard(BoardDTO boardDTO) {
+		// 받아온 유저 정보로 유저 닉네임 꺼내서 boardDTO에 넣기
+		
 		boardMapper.insertBoard(boardDTO);
 	}
 

@@ -9,7 +9,8 @@ public class BoardDTO {
 	private Long brdId;
 	@NotBlank(message = "제목을 입력하셔야 합니다.")
 	private String brdTitle;
-	private String brdWriter;
+	private Long writerId;
+	private String writerNickname;
 	@NotBlank(message = "내용을 입력하셔야 합니다.")
 	private String brdContent;
 	private LocalDateTime brdRegTime;
@@ -26,11 +27,17 @@ public class BoardDTO {
 	public void setBrdTitle(String brdTitle) {
 		this.brdTitle = brdTitle;
 	}
-	public String getBrdWriter() {
-		return brdWriter;
+	public Long getWriterId() {
+		return writerId;
 	}
-	public void setBrdWriter(String brdWriter) {
-		this.brdWriter = brdWriter;
+	public void setBrdWriteId(Long writerId) {
+		this.writerId = writerId;
+	}
+	public String getWriterNickname() {
+		return writerNickname;
+	}
+	public void setWriterNickname(String writerNickname) {
+		this.writerNickname = writerNickname;
 	}
 	public String getBrdContent() {
 		return brdContent;

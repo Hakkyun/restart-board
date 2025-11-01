@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	
+	<style>
+	    .object-fit-cover { object-fit: cover; }
+	    .bm-thumb { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; }
+	    .sticky-box { position: sticky; top: 80px; }
+	</style>
+</head>
+<body class="bg-light">
+	<div th:replace="~{fragments/header :: headerFragment}"></div>
+	<div class="container py-4">	
+		<!-- 상단 카테고리 영역 -->
+		<div class="d-flex justify-content-between align-items-center mb-2">
+			<div class="d-flex gap-2">
+				<span class="badge bg-secondary">중고거래</span>
+				<span class="badge bg-light text-dark border">전북 전주시</span>
+				<span class="badge bg-light text-dark border">일렉기타</span>
+		    </div>
+		    <a href="#" class="btn btn-outline-dark btn-sm">수정하기</a>
+		</div>
+		
+		<div class="row g-4">
+	       	<!-- 왼쪽 본문 -->
+			<div class="col-lg-8">
+				<!-- 메인 이미지 -->
+				<div class="ratio ratio-16x9 rounded overflow-hidden bg-dark">
+					<img th:src="@{/image/guitar.jfif}" alt="대표 이미지" class="w-100 h-100 object-fit-cover"> <!-- th:src="@{${item.mainImage}}" -->
+				</div>
+	
+				<!-- 썸네일 리스트 --> 
+				<div class="d-flex gap-2 mt-2">
+<!--					
+					<div th:each="img : ${item.subImages}" class="ratio ratio-1x1" style="width: 80px;">
+						<img th:src="@{${img}}" class="w-100 h-100 rounded object-fit-cover" alt="썸네일">
+					</div>
+-->
+					<div class="d-flex gap-2 mt-2 flex-wrap">
+						<div style="width:80px; aspect-ratio:1/1;">
+							<img th:src="@{/image/palmer.PNG}" class="w-100 h-100 rounded object-fit-cover" alt="썸네일">
+						</div>
+						<div style="width:80px; aspect-ratio:1/1;">
+							<img th:src="@{/image/hato.PNG}" class="w-100 h-100 rounded object-fit-cover" alt="썸네일">
+						</div>							
+						<div style="width:80px; aspect-ratio:1/1;">
+							<img th:src="@{/image/hato.PNG}" class="w-100 h-100 rounded object-fit-cover" alt="썸네일">
+						</div>							
+						<div style="width:80px; aspect-ratio:1/1;">
+							<img th:src="@{/image/hato.PNG}" class="w-100 h-100 rounded object-fit-cover" alt="썸네일">
+						</div>							
+						<div style="width:80px; aspect-ratio:1/1;">
+							<img th:src="@{/image/hato.PNG}" class="w-100 h-100 rounded object-fit-cover" alt="썸네일">
+						</div>							
+						<div style="width:80px; aspect-ratio:1/1;">							
+							<img th:src="@{/image/hato.PNG}" class="w-100 h-100 rounded object-fit-cover" alt="썸네일">
+						</div>							
+						<div style="width:80px; aspect-ratio:1/1;">
+							<img th:src="@{/image/palmer.PNG}" class="w-100 h-100 rounded object-fit-cover" alt="썸네일">
+						</div>
+						<div style="width:80px; aspect-ratio:1/1;">							
+							<img th:src="@{/image/human.PNG}" class="w-100 h-100 rounded object-fit-cover" alt="썸네일">
+						</div>
+						<div style="width:80px; aspect-ratio:1/1;">
+							<img th:src="@{/image/palmer.PNG}" class="w-100 h-100 rounded object-fit-cover" alt="썸네일">
+						</div>
+					</div>
+				</div>
+				
+				<!-- 판매자 정보 -->
+				<div class="card border-0 mt-3 bg-body-tertiary">
+					<div class="card-body d-flex align-items-center gap-3">
+						<img th:src="@{/image/default-avatar.png}" alt="판매자" class="bm-thumb">
+						<div>
+							<div class="fw-semibold" th:text="${product.userName}">골롬플라이</div> <!-- th:text="${product.sellerName}" -->
+							<div class="text-muted small" th:text="${product.userEmail}">밴드 리더</div> <!-- th:text="${product.sellerRole}" -->
+						</div>
+						<div class="ms-auto text-muted small">
+							❤️ <span>12</span> &nbsp; <!-- th:text="${item.likes}" --> 
+							👁️ <span>321</span> <!-- th:text="${item.views}" -->
+						</div>
+					</div>
+				</div>
+	
+				<!-- 상품 정보 -->
+				<div class="card border-0 mt-3">
+					<div class="card-body">
+						<div class="d-flex flex-wrap gap-2 mb-2">
+							<span class="badge bg-light text-dark border">
+								<i class="fa fa-globe me-1"></i>
+								<span>전북 전주시</span> <!-- th:text="${item.region}" -->
+							</span>
+	           				<span class="badge bg-light text-dark border">
+	                   			<i class="fa fa-tag me-1"></i>
+								<span>일렉기타/픽업</span> <!-- th:text="${item.category}" -->
+	               			</span>
+						</div>
+	
+						<h5 class="fw-bold mb-3">일렉기타 픽업 판매합니다</h5>  <!-- th:text="${item.title}" -->
+						<p style="white-space: pre-line;"> <!-- th:text="${item.description}" -->
+							기타 팝니다.
+							- 도브 3셋 / 도브 버브 하스 정품 (한남수령)
+							- 교환/환불 불가, 직접거래 선호
+							- Grass Roots 레스폴 기타입니다
+							  선버스트 색상이고, 가방 포함입니다
+							  가성비가 뛰어나고 연주하기 편한 기타입니다.
+							  환불이 어렵습니다.
+							  
+							  NAYMA 브랜드의 화이트 어쿠스틱 기타입니다
+							  사용감이 적고 깨끗한 상태를 유지하고 있어요
+							  피크 3개와 스트랩이 함께 포함되어 있어 바로 연주를 시작할 수 있습니다
+							  초보자분들이나 가볍게 연주하실 분들에게 추천드려요
+							  
+							  기타 팝니다.
+							  - 도브 3셋 / 도브 버브 하스 정품 (한남수령)
+							  - 교환/환불 불가, 직접거래 선호
+							  - Grass Roots 레스폴 기타입니다
+							    선버스트 색상이고, 가방 포함입니다
+							    가성비가 뛰어나고 연주하기 편한 기타입니다.
+							    환불이 어렵습니다.
+							    
+							    NAYMA 브랜드의 화이트 어쿠스틱 기타입니다
+							    사용감이 적고 깨끗한 상태를 유지하고 있어요
+							    피크 3개와 스트랩이 함께 포함되어 있어 바로 연주를 시작할 수 있습니다
+							    초보자분들이나 가볍게 연주하실 분들에게 추천드려요							  
+						</p>
+					</div>
+				</div>
+	
+				<!-- 관련 제품 -->
+				<div class="d-grid mt-3">
+					<button class="btn btn-outline-secondary">관련제품 보기</button>
+				</div>
+			</div>
+	
+			<!-- 오른쪽 결제 박스 -->
+			<div class="col-lg-4">
+				<div class="card border-0 shadow-sm sticky-box">
+					<div class="card-body">
+						<h5 th:text="${product.productName}" class="fw-bold mb-3">일렉기타 픽업 판매합니다</h5> <!-- th:text="${item.title}" -->
+						<div class="fs-4 fw-bold text-danger mb-3" th:text="${#numbers.formatInteger(product.productUnitPrice, 0)} + ' 원'">50,000 원</div>
+	
+						<div class="d-grid gap-2 mb-3">
+							<a href="#" class="btn btn-danger">문의하기</a>
+							<a th:href="@{/order/orderPage/{id}(id=${productId})}" class="btn btn-primary" sec:authorize="isAuthenticated()">거래하기</a>
+							<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginRequiredModal" sec:authorize="!isAuthenticated()">거래하기</button>							
+						</div>
+	
+						<hr>
+						<div class="small text-muted d-flex justify-content-between">
+							<span>안전결제 지원</span>
+							<span>0507-1404-4598</span> <!-- th:text="${item.phone}" -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>		 
+	</div>	
+	
+	<!-- 모달 -->
+	<div class="modal fade" id="loginRequiredModal" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">로그인이 필요합니다</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					거래하기는 회원 전용 기능입니다. 로그인 후 이용해주세요.
+				</div>
+				<div class="modal-footer">
+					<!-- 로그인으로 이동 (로그인 후 글쓰기 화면으로 돌아오고 싶다면 redirect 파라미터 활용) -->
+					<a class="btn btn-primary" th:href="@{/order/orderPage/{id}(id=${productId})}" id="goLoginBtn">로그인</a>
+					<button class="btn btn-outline-secondary" data-bs-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+	
+	<!-- <script th:src="@{/js/main.js}"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
+</html>
